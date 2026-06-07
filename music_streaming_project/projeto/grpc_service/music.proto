@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package music;
+
+// ── Mensagens de dados ─────────────────────────────────────────
+
+message User {
+  int32 id = 1;
+  string nome = 2;
+  int32 idade = 3;
+}
+
+message Song {
+  int32 id = 1;
+  string nome = 2;
+  string artista = 3;
+}
+
+message Playlist {
+  int32 id = 1;
+  string nome = 2;
+  int32 usuario_id = 3;
+  repeated int32 musicas = 4;
+}
+
+// ── Mensagens de request/response ─────────────────────────────
+
+message Empty {}
+
+message IdRequest      { int32 id = 1; }
+message BoolResponse   { bool success = 1; }
+
+// Usuários
+message CreateUserRequest  { string nome = 1; int32 idade = 2; }
+message UpdateUserRequest  { int32 id = 1; string nome = 2; int32 idade = 3; }
+message UserList           { repeated User users = 1; }
+message PlaylistList       { repeated Playlist playlists = 1; }
+
+// Músicas
+message CreateSongRequest  { string nome = 1; string artista = 2; }
+message UpdateSongRequest  { int32 id = 1; string nome = 2; string artista = 3; }
+message SongList           { repeated Song songs = 1; }
+
+// Playlists
+message CreatePlaylistRequest {
+  string nome = 1;
+  int32 usuario_id = 2;
+  repeated int32 musicas = 3;
+}
+message UpdatePlaylistRequest { int32 id = 1; string nome = 2; }
+message PlaylistSongRequest   { int32 playlist_id = 1; int32 song_id = 2; }
+message UserIdRequest         { int32 usuario_id = 1; }
+message SongIdRequest         { int32 song_id = 1; }
+
+// ── Serviços ───────────────────────────────────────────────────
+
+service UserService {
+  rpc CreateUser    (CreateUserRequest) returns (User);
+  rpc ListUsers     (Empty)            returns (UserList);
+  rpc GetUser       (IdRequest)        returns (User);
+  rpc UpdateUser    (UpdateUserRequest) returns (User);
+  rpc DeleteUser    (IdRequest)        returns (BoolResponse);
+  rpc GetUserPlaylists (UserIdRequest) returns (PlaylistList);
+}
+
+service SongService {
+  rpc CreateSong    (CreateSongRequest) returns (Song);
+  rpc ListSongs     (Empty)             returns (SongList);
+  rpc GetSong       (IdRequest)         returns (Song);
+  rpc UpdateSong    (UpdateSongRequest) returns (Song);
+  rpc DeleteSong    (IdRequest)         returns (BoolResponse);
+  rpc GetSongPlaylists (SongIdRequest)  returns (PlaylistList);
+}
+
+service PlaylistService {
+  rpc CreatePlaylist       (CreatePlaylistRequest) returns (Playlist);
+  rpc ListPlaylists        (Empty)                 returns (PlaylistList);
+  rpc GetPlaylist          (IdRequest)             returns (Playlist);
+  rpc UpdatePlaylist       (UpdatePlaylistRequest) returns (Playlist);
+  rpc DeletePlaylist       (IdRequest)             returns (BoolResponse);
+  rpc AddSongToPlaylist    (PlaylistSongRequest)   returns (Playlist);
+  rpc RemoveSongFromPlaylist (PlaylistSongRequest) returns (Playlist);
+  rpc GetPlaylistSongs     (IdRequest)             returns (SongList);
+}
