@@ -1,0 +1,7 @@
+﻿graphql-core==3.2.5
+grpcio==1.81.0
+grpcio-tools==1.81.0
+protobuf==6.33.6
+locust==2.32.10
+pillow==12.1.1
+
