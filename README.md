@@ -386,5 +386,6 @@ docker compose up
 Pedro Enrique Jordao /
 Amanda Evelin / 
 Rogerio Bruno
+```
 ##Projeto acadêmico de Computação Distribuída.
 ```
