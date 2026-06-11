@@ -383,8 +383,8 @@ docker compose up
 ```
 
 ## Autor
-Pedro Enrique Jordao 
-Amanda Evelin
+Pedro Enrique Jordao /
+Amanda Evelin / 
 Rogerio Bruno
-Projeto acadêmico de Computação Distribuída.
+##Projeto acadêmico de Computação Distribuída.
 ```
