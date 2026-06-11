@@ -1,0 +1,19 @@
+{
+  "name": "music-streaming-javascript",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Versao JavaScript do trabalho de comparacao REST, GraphQL, SOAP e gRPC.",
+  "scripts": {
+    "rest": "node servers/rest.js",
+    "graphql": "node servers/graphql.js",
+    "soap": "node servers/soap.js",
+    "grpc": "node servers/grpcServer.js",
+    "check": "node --check src/application/catalogService.js && node --check httpUtils.js && node --check src/adapters/rest/server.js && node --check src/adapters/graphql/server.js && node --check src/adapters/soap/server.js && node --check src/adapters/grpc/server.js && node --check healthcheckGrpc.js"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.14.4",
+    "@grpc/proto-loader": "^0.8.1",
+    "graphql": "16.10.0"
+  }
+}

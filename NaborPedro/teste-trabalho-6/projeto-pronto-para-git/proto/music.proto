@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package music.streaming.v1;
+
+service MusicCatalogService {
+  rpc Reset(EmptyRequest) returns (MutationResult);
+
+  rpc ListUsers(EmptyRequest) returns (UserListResponse);
+  rpc GetUser(ResourceIdRequest) returns (UserRecord);
+  rpc CreateUser(UserCreateRequest) returns (UserRecord);
+  rpc UpdateUser(UserUpdateRequest) returns (UserRecord);
+  rpc DeleteUser(ResourceIdRequest) returns (MutationResult);
+
+  rpc ListSongs(EmptyRequest) returns (SongListResponse);
+  rpc GetSong(ResourceIdRequest) returns (SongRecord);
+  rpc CreateSong(SongCreateRequest) returns (SongRecord);
+  rpc UpdateSong(SongUpdateRequest) returns (SongRecord);
+  rpc DeleteSong(ResourceIdRequest) returns (MutationResult);
+
+  rpc ListPlaylists(PlaylistQueryRequest) returns (PlaylistListResponse);
+  rpc GetPlaylist(ResourceIdRequest) returns (PlaylistRecord);
+  rpc CreatePlaylist(PlaylistCreateRequest) returns (PlaylistRecord);
+  rpc UpdatePlaylist(PlaylistUpdateRequest) returns (PlaylistRecord);
+  rpc DeletePlaylist(ResourceIdRequest) returns (MutationResult);
+
+  rpc ListUserPlaylists(UserPlaylistQueryRequest) returns (PlaylistListResponse);
+  rpc ListPlaylistSongs(PlaylistSongQueryRequest) returns (SongListResponse);
+  rpc ListSongPlaylists(SongPlaylistQueryRequest) returns (PlaylistListResponse);
+}
+
+message EmptyRequest {}
+message MutationResult { bool ok = 1; }
+message ResourceIdRequest { string id = 1; }
+
+message UserRecord { string id = 1; string name = 2; string email = 3; }
+message UserCreateRequest { string name = 1; string email = 2; }
+message UserPatch { string name = 1; string email = 2; }
+message UserUpdateRequest { string id = 1; UserPatch user = 2; }
+message UserListResponse { repeated UserRecord users = 1; }
+
+message SongRecord { string id = 1; string title = 2; string artist = 3; string album = 4; int32 duration_seconds = 5; }
+message SongCreateRequest { string title = 1; string artist = 2; string album = 3; int32 duration_seconds = 4; }
+message SongPatch { string title = 1; string artist = 2; string album = 3; int32 duration_seconds = 4; }
+message SongUpdateRequest { string id = 1; SongPatch song = 2; }
+message SongListResponse { repeated SongRecord songs = 1; }
+
+message PlaylistRecord { string id = 1; string user_id = 2; string name = 3; repeated string song_ids = 4; }
+message PlaylistCreateRequest { string user_id = 1; string name = 2; repeated string song_ids = 3; }
+message PlaylistPatch { string user_id = 1; string name = 2; repeated string song_ids = 3; }
+message PlaylistUpdateRequest { string id = 1; PlaylistPatch playlist = 2; }
+message PlaylistQueryRequest { string user_id = 1; string song_id = 2; }
+message PlaylistListResponse { repeated PlaylistRecord playlists = 1; }
+message UserPlaylistQueryRequest { string user_id = 1; }
+message PlaylistSongQueryRequest { string playlist_id = 1; }
+message SongPlaylistQueryRequest { string song_id = 1; }
