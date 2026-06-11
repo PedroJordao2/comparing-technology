@@ -1,4 +1,15 @@
-Segue um `README.md` pronto para colocar no Git:
+
+Gostaria de informar que realizei as correções necessárias na implementação do gRPC. Após as alterações, os resultados passaram a ser contabilizados corretamente durante a execução dos testes.
+
+O problema identificado estava relacionado ao arquivo .proto: o Locust ainda utilizava nomes de serviços/métodos definidos em uma versão anterior do protocolo, o que impedia a comunicação correta com o servidor e, consequentemente, a contabilização dos resultados. Após a atualização das referências para os nomes atuais definidos no .proto, os testes passaram a funcionar conforme esperado.
+
+
+
+
+
+
+
+
 
 ```md
 # Music Catalog Distributed Services
